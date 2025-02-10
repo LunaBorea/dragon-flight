@@ -1,7 +1,7 @@
-class Player {
+class Floor {
     constructor () {
         
     }
 }
 
-export default Player
+export default Floor

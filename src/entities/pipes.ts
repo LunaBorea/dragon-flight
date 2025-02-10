@@ -1,7 +1,7 @@
-class Player {
+class Pipes {
     constructor () {
         
     }
 }
 
-export default Player
+export default Pipes
