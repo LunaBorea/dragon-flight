@@ -1,5 +1,7 @@
 import Phaser from 'phaser'
 
+// shits wack and fucked up, fix it
+
 export default class Pipes extends Phaser.GameObjects.Group {
     topPipe: Phaser.GameObjects.Rectangle;
     bottomPipe: Phaser.GameObjects.Rectangle;
