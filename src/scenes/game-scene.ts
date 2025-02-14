@@ -23,8 +23,6 @@ export default class GameScene extends Phaser.Scene {
                 this.spawnPipes();
             }
         });
-
-        this.physics.add.collider(this.player, this.pipes as unknown as Phaser.GameObjects.GameObject);
     }
 
     spawnPipes() {

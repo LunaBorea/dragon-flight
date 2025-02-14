@@ -11,7 +11,7 @@ export default class Pipes extends Phaser.GameObjects.Group {
         super(scene);
 
         x *= 300; // Horizontal gap between pipes
-        this.velocity = -150;
+        this.velocity = -175;
         this.gapY = Phaser.Math.Between(50, 350)
         this.gapSize = 185 // Vertical gap between pipes
 
@@ -29,13 +29,14 @@ export default class Pipes extends Phaser.GameObjects.Group {
     }
 
     update() {
-        this.gapY = Phaser.Math.Between(50, 350)
 
-        // If pipe moves off-screen, resets position
+        // If pipe moves off-screen, resets position and gap
         if (this.topPipe.x < -50) {
             this.topPipe.x = 850;
             this.bottomPipe.x = 850;
             
+            this.gapY = Phaser.Math.Between(50, 350)
+
             this.topPipe.y = this.gapY
             this.bottomPipe.y = this.gapY + this.gapSize
         }
