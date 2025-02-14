@@ -3,9 +3,9 @@ import Player from "../entities/player";
 import Pipes from "../entities/pipes";
 
 export default class GameScene extends Phaser.Scene {
-    player!: Player;
-    pipes: Pipes[] = [];
-    gameStarted: boolean = false;
+    private player!: Player;
+    private pipes: Pipes[] = [];
+    public gameStarted: boolean = false;
 
     constructor() {
         super('game-scene');

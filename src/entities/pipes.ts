@@ -1,11 +1,11 @@
 import Phaser from 'phaser'
 
 export default class Pipes extends Phaser.GameObjects.Group {
-    topPipe: Phaser.GameObjects.Rectangle;
-    bottomPipe: Phaser.GameObjects.Rectangle;
-    velocity: number;
-    gapY: number;
-    gapSize: number;
+    public topPipe: Phaser.GameObjects.Rectangle;
+    public bottomPipe: Phaser.GameObjects.Rectangle;
+    private velocity: number;
+    private gapY: number;
+    private gapSize: number;
     
     constructor(scene: Phaser.Scene, x: number) {
         super(scene);

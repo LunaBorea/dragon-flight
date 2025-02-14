@@ -2,11 +2,11 @@ import Phaser from 'phaser'
 import GameScene from '../scenes/game-scene';
 
 export default class Player extends Phaser.GameObjects.Rectangle {
-    jumpStrength: number;
-    jumpKey: Phaser.Input.Keyboard.Key;
-    firstJump: boolean;
-    isJumping: boolean;
-    sceneRef: GameScene;
+    private jumpStrength: number;
+    private jumpKey: Phaser.Input.Keyboard.Key;
+    private firstJump: boolean;
+    private isJumping: boolean;
+    private sceneRef: GameScene;
     
     constructor (scene: Phaser.Scene, x: number, y: number) {
         super(scene, x, y, 40, 40, 0xa81f13)
