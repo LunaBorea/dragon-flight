@@ -7,6 +7,7 @@ export default class Player extends Phaser.GameObjects.Rectangle {
     private firstJump: boolean;
     private isJumping: boolean;
     private sceneRef: GameScene;
+    declare body: Phaser.Physics.Arcade.Body
     
     constructor (scene: Phaser.Scene, x: number, y: number) {
         super(scene, x, y, 40, 40, 0xa81f13)
@@ -20,17 +21,17 @@ export default class Player extends Phaser.GameObjects.Rectangle {
         scene.add.existing(this)
         scene.physics.add.existing(this);
 
-        (this.body! as Phaser.Physics.Arcade.Body).setCollideWorldBounds(true);
+        this.body.setCollideWorldBounds(true);
     }
 
     update() {
         if (this.firstJump == true) {
-            this.body!.position.y = 275
+            this.body.position.y = 275
         }
 
         if (this.jumpKey.isDown && !this.isJumping) {
             this.isJumping = true
-            this.body!.velocity.y = -this.jumpStrength
+            this.body.velocity.y = -this.jumpStrength
             
             if (this.firstJump == true) {
                 this.firstJump = false
