@@ -1,45 +1,44 @@
 import Phaser from 'phaser'
 
-// shits wack and fucked up, fix it
-
 export default class Pipes extends Phaser.GameObjects.Group {
     topPipe: Phaser.GameObjects.Rectangle;
     bottomPipe: Phaser.GameObjects.Rectangle;
     velocity: number;
-    gapSize: number;
     gapY: number;
+    gapSize: number;
     
     constructor(scene: Phaser.Scene, x: number) {
         super(scene);
 
-        x *= 300; // Gap for pipes x position
+        x *= 300; // Horizontal gap between pipes
         this.velocity = -150;
-        this.gapSize = 200;
-        this.gapY = Phaser.Math.Between(150, 450);
+        this.gapY = Phaser.Math.Between(50, 350)
+        this.gapSize = 185 // Vertical gap between pipes
 
-        this.topPipe = new Phaser.GameObjects.Rectangle(scene, 850 + x, this.gapY - this.gapSize / 2 - 300, 50, 300, 0x00ff00);
+        this.topPipe = new Phaser.GameObjects.Rectangle(scene, 850 + x, this.gapY, 50, 600, 0x0000ff);
         scene.add.existing(this.topPipe);
         scene.physics.add.existing(this.topPipe);
-        this.topPipe.setOrigin(0, 0);
-        this.topPipe.body!.setVelocityX(this.velocity).setImmovable(true).allowGravity = false;
+        this.topPipe.setOrigin(0, 1);
+        (this.topPipe.body! as Phaser.Physics.Arcade.Body).setVelocityX(this.velocity).setImmovable(true).allowGravity = false;
 
-        this.bottomPipe = new Phaser.GameObjects.Rectangle(scene, 850 + x, this.gapY + this.gapSize / 2, 50, 300, 0x0000ff);
+        this.bottomPipe = new Phaser.GameObjects.Rectangle(scene, 850 + x, this.gapY + this.gapSize, 50, 600, 0x0000ff);
         scene.add.existing(this.bottomPipe);
         scene.physics.add.existing(this.bottomPipe);
         this.bottomPipe.setOrigin(0, 0);
-        this.bottomPipe.body!.setVelocityX(this.velocity).setImmovable(true).allowGravity = false;
+        (this.bottomPipe.body! as Phaser.Physics.Arcade.Body).setVelocityX(this.velocity).setImmovable(true).allowGravity = false;
     }
 
     update() {
-        // If the pipes move off-screen, reset their position
+        this.gapY = Phaser.Math.Between(50, 350)
+
+        // If pipe moves off-screen, resets position
         if (this.topPipe.x < -50) {
             this.topPipe.x = 850;
             this.bottomPipe.x = 850;
-
-            this.gapY = Phaser.Math.Between(150, 450);
-
-            this.topPipe.y = this.gapY - this.gapSize / 2 - 300;
-            this.bottomPipe.y = this.gapY + this.gapSize / 2;
+            
+            this.topPipe.y = this.gapY
+            this.bottomPipe.y = this.gapY + this.gapSize
         }
+
     }
 }

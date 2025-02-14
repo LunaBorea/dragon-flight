@@ -5,25 +5,51 @@ import Pipes from "../entities/pipes";
 export default class GameScene extends Phaser.Scene {
     player!: Player;
     pipes: Pipes[] = [];
+    gameStarted: boolean = false;
 
     constructor() {
         super('game-scene');
     };
 
     create() {
-        this.player = new Player(this, 50, 300)
+        this.gameStarted = false;
+        this.pipes = [];
 
-        // Create multiple pipe pairs, evenly spaced out
+        this.player = new Player(this, 150, 275)
+
+        this.input.keyboard!.on('keydown-UP', () => {
+            if (!this.gameStarted) {
+                this.gameStarted = true;
+                this.spawnPipes();
+            }
+        });
+
+        this.physics.add.collider(this.player, this.pipes as unknown as Phaser.GameObjects.GameObject);
+    }
+
+    spawnPipes() {
         for (let i = 0; i < 3; i++) {
-            const pipe = new Pipes(this, i); // Pipe width: 50px, gap size: 200px
+            const pipe = new Pipes(this, i);
             this.pipes.push(pipe);
         }
     }
 
-    update(time: number, delta: number): void {
+    update(time: number, delta: number): void { time; delta;
+        let body = this.player.body as Phaser.Physics.Arcade.Body
+
         this.player.update()
 
         this.pipes.forEach(pipe => pipe.update());
+
+        this.pipes.forEach(pipe => {
+            if (this.physics.overlap(this.player, pipe.topPipe) || this.physics.overlap(this.player, pipe.bottomPipe)) {
+                this.scene.restart();
+            }
+        });
+
+        if (body.blocked.up || body.blocked.down) {
+            this.scene.restart();
+        }
     };
 
 };
